@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<pfsensepkgs>
+	<package>
+		<name>Notifier</name>
+		<descr><![CDATA[The Notifier utility is used to send realtime notifications to telegram.]]></descr>
+		<version>%%PKGVERSION%%</version>
+		<configurationfile>notifier.xml</configurationfile>
+	</package>
+</pfsensepkgs>

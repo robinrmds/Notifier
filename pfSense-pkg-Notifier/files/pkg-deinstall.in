@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/local/bin/php -f /etc/rc.packages %%PORTNAME%% ${2}
+/usr/local/bin/php -f /usr/local/pkg/notifier.inc -r <?notifier_install_package()?>

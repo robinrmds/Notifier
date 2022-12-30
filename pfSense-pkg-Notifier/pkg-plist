@@ -1,0 +1,10 @@
+/etc/inc/priv/notifier.priv.inc
+pkg/notifier.xml
+pkg/notifier.inc
+pkg/notifier/lib/telegram.sh
+www/packages/notifier/Brasil.png
+www/packages/notifier/index.php
+www/packages/notifier/notifier.php
+www/packages/notifier/notifier_edit.php
+%%DATADIR%%/info.xml
+@dir /etc/inc/priv
