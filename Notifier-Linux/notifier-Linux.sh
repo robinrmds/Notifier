@@ -1,4 +1,4 @@
-PREFIX=/usr/local/pkg/notifier
+PREFIX=/opt/notifier
 VALUEIDLASTFILE=$PREFIX/sshd/valueidlast.txt
 VALUEIDLAST=`tail -1 $VALUEIDLASTFILE`
 TEMPFILE=$PREFIX/sshd/tempSSHD.txt
