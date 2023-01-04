@@ -9,7 +9,7 @@
 Instalation</br>
 1 - On pfSense web gui, access the menu "Diagnostics > Command Prompt"</br>
 2 - Execute Shell Command</br>
-    pkg add https://github.com/robinrmds/Notifier/raw/main/pfSense-pkg-Notifier-0.1_3.pkg</br>
+    pkg add https://github.com/robinrmds/Notifier/raw/main/pfSense-pkg-Notifier-0.1_4.pkg</br>
 3 - Refresh WebGui</br>
 </p>
 <p align="justify">
