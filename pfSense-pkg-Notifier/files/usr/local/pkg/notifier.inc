@@ -41,7 +41,7 @@ function notifier_sync_package(array $ent) {
 			$B_IP_SRC="`echo \$MESSAGE | awk -F \"%20\" '{print \$11}'`";
 			$B_MAC_SRC="`arp -a | grep \$IP_SRC | awk '{print \$4}'`";
 			$B_HOST_NAME="`host \$IP_SRC |awk '{print $5}'`";
-			$B_COMMAND="\"\$SENDMESSAGE SERVER:`cat /etc/hosts | awk '{print $1}' | tail -n 1`%20-%20SSHD%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
+			$B_COMMAND="\"\$SENDMESSAGE SERVER:`hostname`%20-%20$typeLOG%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
 			
 		}elseif ( $ent['selectlog'] === 'web') {
 			$typeLOG = "php-fpm";
@@ -51,7 +51,7 @@ function notifier_sync_package(array $ent) {
 			$B_IP_SRC="`echo \$MESSAGE | awk -F \"%20\" '{print \$13}'`";
 			$B_MAC_SRC="`arp -a | grep \$IP_SRC | awk '{print \$4}'`";
 			$B_HOST_NAME="`host \$IP_SRC |awk '{print $5}'`";
-			$B_COMMAND="\"\$SENDMESSAGE SERVER:`cat /etc/hosts | awk '{print $1}' | tail -n 1`%20-%20SSHD%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
+			$B_COMMAND="\"\$SENDMESSAGE SERVER:`hostname`%20-%20$typeLOG%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
 			
 		}elseif ( $ent['selectlog'] === 'dhcpd') {
 			$typeLOG = "dhcpd";
@@ -61,7 +61,7 @@ function notifier_sync_package(array $ent) {
 			$B_IP_SRC="`echo \$MESSAGE | awk -F \"%20\" '{print \$13}'`";
 			$B_MAC_SRC="`arp -a | grep \$IP_SRC | awk '{print \$4}'`";
 			$B_HOST_NAME="`host \$IP_SRC |awk '{print $5}'`";
-			$B_COMMAND="\"\$SENDMESSAGE SERVER:`cat /etc/hosts | awk '{print $1}' | tail -n 1`%20-%20SSHD%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
+			$B_COMMAND="\"\$SENDMESSAGE SERVER:`hostname`%20-%20$typeLOG%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
 			
 		}elseif ( $ent['selectlog'] === 'firewall') {
 			$typeLOG = "filterlog";
@@ -71,7 +71,7 @@ function notifier_sync_package(array $ent) {
 			$B_IP_SRC="`echo \$MESSAGE | awk -F \"%20\" '{print \$13}'`";
 			$B_MAC_SRC="`arp -a | grep \$IP_SRC | awk '{print \$4}'`";
 			$B_HOST_NAME="`host \$IP_SRC |awk '{print $5}'`";
-			$B_COMMAND="\"\$SENDMESSAGE SERVER:`cat /etc/hosts | awk '{print $1}' | tail -n 1`%20-%20SSHD%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
+			$B_COMMAND="\"\$SENDMESSAGE SERVER:`hostname`%20-%20$typeLOG%0A%0A\$MESSAGE%20|%20MAC%20Adress:\$MAC_SRC%20|%20Name:\$HOST_NAME\"";
 			
 		}elseif ( $ent['selectlog'] === 'openvpn') {
 			$typeLOG = "openvpn";
@@ -81,7 +81,7 @@ function notifier_sync_package(array $ent) {
 			$B_IP_SRC="`echo \$MESSAGE | awk -F \"%20\" '{print \$13}'`";
 			$B_MAC_SRC="`arp -a | grep \$IP_SRC | awk '{print \$4}'`";
 			$B_HOST_NAME="`host \$IP_SRC |awk '{print $5}'`";
-			$B_COMMAND="\"\$SENDMESSAGE SERVER:`cat /etc/hosts | awk '{print $1}' | tail -n 1`%20-%20SSHD%0A%0A\$MESSAGE%20\"";
+			$B_COMMAND="\"\$SENDMESSAGE SERVER:`hostname`%20-%20$typeLOG%0A%0A\$MESSAGE%20\"";
 			
 		}
 	
@@ -93,7 +93,7 @@ function notifier_sync_package(array $ent) {
 		$txt = $txt . "\n[ -f \"\$VALUEIDLASTFILE\" ] ||echo `date +%Y%m%d%H%M00` > \"\$VALUEIDLASTFILE\"";
 		$txt = $txt . "\n[ -f \"\$TEMPFILE\" ] ||touch \"\$TEMPFILE\"";
 		$txt = $txt . "\n\nwhile [ true ]; do\n\tgrep $typeLOG \$LOGFILE | grep -E \"".$ent['filterlog']."\" | tail -\$NUMLINES > \$TEMPFILE    ";
-		$txt = $txt . "\n\tNUMLINHAS=`wc -l \$TEMPFILE |awk '{print $1}'`\n\tYEAR=`date +%Y`\n\ti=1\n\twhile [ \$i -le \$NUMLINHAS ]; do\n\t\tMONTH=`head -\$i \$TEMPFILE |tail +\$i | awk '{print $1}'`;"; 
+		$txt = $txt . "\n\tNUMLINHAS=`wc -l \$TEMPFILE |awk '{print $1}'`\n\tYEAR=`date +%Y`\n\tCURRENTMONTH=`date +%m`\n\ti=1\n\twhile [ \$i -le \$NUMLINHAS ]; do\n\t\tMONTH=`head -\$i \$TEMPFILE |tail +\$i | awk '{print $1}'`;"; 
 		$txt = $txt . "\n\t\tVALUEIDLAST=`tail -1 \$VALUEIDLASTFILE`;";
 		$txt = $txt . "\n\t\tDAY=`head -\$i \$TEMPFILE |tail +\$i | awk '{print $2}'`;";
 		$txt = $txt . "\n\tif [ \$DAY -lt 10 ]";
@@ -140,7 +140,7 @@ function notifier_sync_package(array $ent) {
 		$txt = $txt . "\n\t\t\t;;";
 		$txt = $txt . "\n\t\tesac";
 		$txt = $txt . "\n\t\tVALUEID=\$YEAR\$MONTH\$DAY\$HOUR";
-		$txt = $txt . "\n\t\tif [ \$VALUEID -gt \$VALUEIDLAST ]";
+		$txt = $txt . "\n\t\tif [ \$VALUEID -gt \$VALUEIDLAST ] && [ \$MONTH -le \$CURRENTMONTH ]";
 		$txt = $txt . "\n\t\tthen";
 		//$txt = $txt . "\n\t\t\tMESSAGE=`head -\$i \$TEMPFILE |tail +\$i | awk '{print $0}'|sed 's/ /%20/g' | sed 's/\[/-/g'| sed 's/\]/-/g'`";
 		$txt = $txt . "\n\t\t\tMESSAGE=$B_MESSAGE";

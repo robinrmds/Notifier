@@ -27,7 +27,7 @@
 	]]>
 	</copyright>
 	<name>notifier</name>
-	<version>%%PKGVERSION%%</version>
+	<version>0.1_4</version>
 	<title>Notifier Settings</title>
 	<include_file>/usr/local/pkg/notifier.inc</include_file>
 	<menu>
