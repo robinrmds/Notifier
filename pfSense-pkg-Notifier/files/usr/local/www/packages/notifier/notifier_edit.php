@@ -74,7 +74,7 @@ if ($_POST) {
 
 		if (isset($id) && $a_notifier[$id] && !$dup) {
 			// update
-			//shell_exec("echo \"Update\" > /usr/local/pkg/notifier/Update_row.txt");
+			
 			notifier_remove_package($a_notifier[$_GET['id']]);
 			$a_notifier[$id] = $ent;
 		} else {
@@ -132,7 +132,7 @@ $section->addInput(new Form_Select(
 	'selectlog',
 	'Log to Analizer',
 	$pconfig['selectlog'],
-	array('Disabled' => 'Disabled','sshd' => 'SSHD', 'web' => 'Web Login', 'dhcpd' => 'DHCP','firewall' => 'Firewall','openvpn' => 'OpenVpn')
+	array('Disabled' => 'Disabled','sshd' => 'SSHD >> /var/log/auth.log', 'web' => 'Web Login >> /var/log/auth.log', 'dhcpd' => 'DHCP >> /var/log/dhcpd.log','firewall' => 'Firewall  >> /var/log/filter.log','openvpn' => 'OpenVpn >> /var/log/openvpn.log')
 ))->setHelp("Choose a log type to send the notification.");
 
 $section->addInput(new Form_Input(
@@ -140,7 +140,10 @@ $section->addInput(new Form_Input(
 	'Filter',
 	'text',
 	$pconfig['filterlog']
-))->setHelp("Set the filter log with parameter to grep -E. Ex: grep -E \"filter1|filter2\" file.txt");
+))->setHelp("Set the filter log with parameter to grep -E. Ex: grep -E \"filter1|filter2\" file.txt
+			<p></br>For SSH login attempts, use the following filter:</br><li>&emsp;Accepted|error</li></p>
+			<p></br>For WEB login attempts, use the following filter:</br><li>&emsp;Successful|error</li></p>
+			<p></br>Note: It is allowed to use any word in the log of the respective selected service. When the word is found, the notification is sent.</p>");
 				
 
 
@@ -159,7 +162,12 @@ print $form;
 
 ?>
 <div class="infoblock">
-	<?=print_info_box('', 'info')?>
+	<?=print_info_box('The notifier package works by analyzing the log files stored in "/var/log", according to the service specified in "Log to Analyzer". It basically applies a filter using the "grep" command with the "-E" parameter. Services like SSH and web access, are in the same log file, but there is a pre-filter specifying each type of service.
+
+<p></br>Resulting command:</p>
+grep sshd /var/log/auth.log | grep -E "Accepted|error"</br>
+
+<br>In this way, it is possible to customize the filter, obtaining the alert when the condition is met.', 'info')?>
 </div>
 
 <?php include("foot.inc"); ?>
