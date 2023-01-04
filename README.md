@@ -1,7 +1,7 @@
 <p>
 <h3>Notifier</h3>
 <p align="justify">&emsp;The Notifier module for pfSense and Linux is a feature that allows the user to receive real-time alerts and notifications about events occurring on their network and attempts to access the device where the feature is enabled. This initial version can be configured to send alerts through Telegram.</p>
-<p>&emsp;Notifier allows you to create rules to determine which events should generate notifications and which recipients should receive them. For example, it is possible to configure Notifier to send an alert via Telegram whenever a device with a specific registered MAC previously receives a DHCP address or even connects to a certain IP.
+<P align="justify">&emsp;Notifier allows you to create rules to determine which events should generate notifications and which recipients should receive them. For example, it is possible to configure Notifier to send an alert via Telegram whenever a device with a specific registered MAC previously receives a DHCP address or even connects to a certain IP.
 <p align="justify">&emsp; In addition, it allows sending notifications to recipients when WEB, SSH and OpenVPN access attempts are made on the device where the Notifier is enabled.<p>
 <p align="justify">&emsp; The Notifier module is a useful tool to help manage the security of your network and keep the user informed about what is happening in real time. It can be configured to meet each user's specific needs and is a valuable option for those who need quick and accurate alerts on critical device-related events.</p>
 </p>
